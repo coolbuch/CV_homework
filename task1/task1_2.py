@@ -1,8 +1,4 @@
-#import numpy as np
-#from io import StringIO
 
-#def openFile(filename):
-#    with open(filename, 'r') as file:
 from io import StringIO
 import numpy as np
 
