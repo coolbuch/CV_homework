@@ -1,16 +1,43 @@
 import cv2
 import numpy as np
+from skimage import measure
+import matplotlib.pyplot as plt
 
-img = cv2.imread("images/img (8).jpg")
-img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-scale_percent = 20 # Процент от изначального размера
-width = int(img.shape[1] * scale_percent / 100)
-height = int(img.shape[0] * scale_percent / 100)
-dim = (width, height)
-resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-gray_image = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
-ret, threshold_image = cv2.threshold(gray_image, 127, 255, 0)
+def writeToFile(arr):
+    file = open("img.txt", 'w')
+    for i in range(arr.shape[0]):
+        for j in range(arr.shape[1]):
+            file.write(str(arr[i, j]))
+        file.write('\n')
+    file.close()
 
-cv2.imshow("Image", threshold_image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+def analyzeImage(imgPath):
+    img = cv2.imread(imgPath)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    ret, threshold_image = cv2.threshold(gray_image, 120, 255, 0)
+    labeled = measure.label(threshold_image)
+    regions = measure.regionprops(labeled)
+    arr = []
+    for region in regions:
+        if (region.eccentricity > 0.95 and region.filled_area > 200):
+            arr.append(region.filled_area)
+    arr = np.array(arr)
+    #print(arr[arr > np.std(arr)], np.std(arr))
+    #plt.imshow(labeled)
+    #plt.show()
+    if (len(arr) != 0):
+        return len(arr[arr > np.std(arr)])
+    else:
+        return 0
+
+sum = 0
+for i in range(1,13):
+   sum += analyzeImage("images/img ("+str(i)+").jpg")
+
+print("There are ",sum, "pencils on the images")
+
+#
+#cv2.imshow("Image", threshold_image)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
