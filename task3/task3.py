@@ -43,3 +43,39 @@ for mask, foundCount in zip(masks, findings):
     print(mask)
     print('\n')
 
+#Вывод
+#Count of elements:  500
+
+#Found such elements: 92
+#[[1 1 1 1 1 1]
+# [1 1 1 1 1 1]
+# [1 1 1 1 1 1]
+# [1 1 1 1 1 1]]
+
+#Found such elements: 96
+#[[1 1 1 1 1 1]
+# [1 1 1 1 1 1]
+# [1 1 0 0 1 1]
+# [1 1 0 0 1 1]]
+
+#Found such elements: 95
+#[[1 1 0 0 1 1]
+# [1 1 0 0 1 1]
+# [1 1 1 1 1 1]
+# [1 1 1 1 1 1]]
+
+#Found such elements: 94
+#[[1 1 1 1]
+# [1 1 1 1]
+# [1 1 0 0]
+# [1 1 0 0]
+# [1 1 1 1]
+# [1 1 1 1]]
+
+#Found such elements: 123
+#[[1 1 1 1]
+# [1 1 1 1]
+# [0 0 1 1]
+# [0 0 1 1]
+# [1 1 1 1]
+# [1 1 1 1]]
